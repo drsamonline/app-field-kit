@@ -67,6 +67,13 @@ Mutation-tested six ways on 26/11/2026, all red: the threshold disabled (crash),
 distance (8 failures), the lifelist dropping the place (2), a non-bird tallied as a species (crash), a
 broken lifelist starting empty (3), and any species confirmable (crash).
 
+## A build failure worth recording
+
+The first `Build + deploy` run failed in the **Android APK** job: `Could not resolve
+com.google.errorprone:error_prone_annotations:2.3.1`. That is Maven Central rate-limiting, the same
+transient failure this fleet hit on `app-voice` — not a defect in this app. Recovery is another push,
+because the workflow cannot be re-run with this credential.
+
 ## Layout
 
 ```
