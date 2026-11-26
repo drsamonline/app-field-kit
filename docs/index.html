@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Kit — Aviary</title>
+<meta name="description" content="Rank a bird call against bundled sketches and keep a lifelist. Offline, no microphone, and it says what it is not.">
+<meta name="theme-color" content="#101418">
+<style>
+  :root{--bg:#f6f5f2;--panel:#fff;--ink:#14181d;--muted:#5d666f;--line:#d9d6cf;--accent:#2f6b5f}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
+  main{max-width:760px;margin:0 auto;padding:48px 20px 64px}
+  h1{font-size:33px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px}
+  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
+  .cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:9px}
+  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:9px;background:var(--panel);font-size:14px}
+  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
+  h2{font-size:17px;margin:30px 0 8px}
+  ul{padding-left:20px}li{margin:4px 0}
+  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#eeede9;padding:1px 5px;border-radius:4px}
+  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
+  th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
+  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+  .gap{margin:22px 0 0;padding:12px 14px;border:1px solid #e3c9c9;border-left:4px solid #a02a2a;border-radius:9px;background:#fdf3f3;color:#7d1f1f;font-size:13.5px}
+  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+  a{color:var(--accent)}
+</style></head>
+<body><main>
+  <h1>Field Kit — Aviary</h1>
+  <p class="lede">Rank a call against bundled sketches, and keep a lifelist with the time, the place and the clip. Offline, with no microphone.</p>
+  <a class="cta" href="play/index.html">Open Aviary</a>
+
+  <p class="gap"><strong>This is not a bird identifier.</strong> There is no trained acoustic model and no audio capture in this estate. The eight bundled calls are <em>synthetic spectral sketches</em>, not recordings, and the ranking is nearest-neighbour over them. What is real: the ranking, the confidence, the threshold, the “not a bird” band and the lifelist.</p>
+
+  <div class="status">
+    <b>Status</b>
+    Built and working offline: eight bundled sketches; a ranked list with confidences; a threshold below which the app says <strong>not a bird</strong> and offers no species; a lifelist with time, place and clip that survives a reload; and a dawn-chorus tally that confirms nothing.
+    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-field-kit/releases/tag/app-latest">app-latest</a>.
+    <br><b>Not built</b>: recording, spectrogram computation from audio, and a trained classifier. None of those exist here, and the app says so above the fold rather than shipping a microphone button that would return confident nonsense.
+  </div>
+
+  <h2>What it does</h2>
+  <ul>
+    <li>Ranks a spectral sketch against eight bundled templates and shows a confidence for each.</li>
+    <li>Refuses to name a species below the threshold: it says <strong>not a bird</strong> instead.</li>
+    <li>Keeps a lifelist — species, time, place, clip — that survives a reload with no network.</li>
+    <li>Tallies species over a session in dawn-chorus mode, without confirming any of them.</li>
+  </ul>
+
+  <h2>What it will not do</h2>
+  <ul>
+    <li><strong>Identify a real bird.</strong> There is no model, and the app says so on its own face.</li>
+    <li><strong>Record audio.</strong> No microphone, no capture, no spectrogram from sound.</li>
+    <li><strong>Give a confident wrong ID.</strong> Below the threshold, no species is offered.</li>
+    <li><strong>Confirm from the chorus.</strong> The tally is a tally.</li>
+    <li><strong>Use the internet.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
+  </ul>
+
+  <h2>When things go wrong</h2>
+  <table>
+    <tr><th>Case</th><th>What happens</th></tr>
+    <tr><td>Bad input</td><td>A sketch with the wrong number of bands is refused; a sighting with no place is refused; a species that is not bundled cannot be confirmed.</td></tr>
+    <tr><td>No network</td><td>Nothing changes; the lifelist is on the device.</td></tr>
+    <tr><td>Storage full or unavailable</td><td><strong>NOT SAVED</strong>, and the sighting is not in the lifelist.</td></tr>
+    <tr><td>Corrupt saved state</td><td>Reported and offered for export; never replaced with an empty lifelist.</td></tr>
+  </table>
+
+  <h2>How to run it</h2>
+  <ul>
+    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
+    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
+    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code>.</li>
+  </ul>
+
+  <footer>PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin · <a href="https://github.com/drsamonline/app-field-kit">source</a></footer>
+</main></body></html>

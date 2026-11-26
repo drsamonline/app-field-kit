@@ -1,0 +1,31 @@
+NOTICE
+======
+
+Field Kit (Aviary) — https://github.com/drsamonline/app-field-kit
+Copyright 2026 Dr Sohil Momin. Licensed under PolyForm Noncommercial 1.0.0 (see LICENSE).
+
+Third-party components
+----------------------
+
+None. Field Kit has no third-party dependency and no CDN.
+
+Vendored from this project's own kits (same licence, same author), copied verbatim on 26/11/2026:
+
+- web-kit 0.1.0 — docs/play/web-kit.js — the offline shell, storage helpers and PWA registration
+- export-kit 1.0.0 — docs/play/export-kit.js — Blob download, used for the lifelist export
+
+Neither kit is modified. Neither makes a network request.
+
+Not a bird identifier
+---------------------
+
+There is no trained acoustic model in this project and no audio capture at all. The eight "reference
+calls" are SYNTHETIC six-band spectral sketches written by hand — not recordings, not derived from any
+recording, and not measurements of any real bird.
+
+What the app does: it ranks a sketch against those templates by Euclidean distance, converts the distance
+to a confidence against the spread of the templates, and refuses to name a species below a threshold of
+0.62 — saying "not a bird" instead. That ranking, the threshold, the refusal and the lifelist are real
+and tested. The identification is not a real bird identification, and the app says so on its own face.
+
+The species names are real species; the sketches are not their calls.
