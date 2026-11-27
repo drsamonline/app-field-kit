@@ -1,6 +1,18 @@
-{ "name": "app-field-kit", "version": "1.0.0", "private": true,
+{
+  "name": "app-field-kit",
+  "version": "1.0.0",
+  "private": true,
   "description": "Rank a bird call against bundled sketches and keep a lifelist. Offline, no microphone, and it says what it is not.",
-  "license": "PolyForm-Noncommercial-1.0.0", "author": "Dr Sohil Momin",
-  "scripts": { "test": "node tests/self-tests.js && node tests/page-smoke.js && node tests/ui-tests.js",
-    "test:engine": "node tests/self-tests.js", "test:shape": "node tests/page-smoke.js", "test:ui": "node tests/ui-tests.js" },
-  "devDependencies": { "jsdom": "^24.0.0" } }
+  "license": "PolyForm-Noncommercial-1.0.0",
+  "author": "Dr Sohil Momin",
+  "scripts": {
+    "test": "node tests/self-tests.js && node tests/page-smoke.js && node tests/ui-tests.js && node tests/failed-save.js",
+    "test:engine": "node tests/self-tests.js",
+    "test:shape": "node tests/page-smoke.js",
+    "test:ui": "node tests/ui-tests.js",
+    "test:save": "node tests/failed-save.js"
+  },
+  "devDependencies": {
+    "jsdom": "^24.0.0"
+  }
+}
