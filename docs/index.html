@@ -1,83 +1,110 @@
 <!DOCTYPE html>
 <html lang="en-IN">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Field Kit — Aviary</title>
-<meta name="description" content="Rank a bird call against bundled sketches and keep a lifelist. Offline, no microphone, and it says what it is not.">
-<meta name="theme-color" content="#101418">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Field Kit — Aviary, a specimen case</title>
+<meta name="description" content="Rank a bird call against bundled sketches, or say 'not a bird' rather than guess. Not a trained model.">
+<meta name="theme-color" content="#e7e8dc">
 <style>
-  :root{--bg:#f6f5f2;--panel:#fff;--ink:#14181d;--muted:#5d666f;--line:#d9d6cf;--accent:#2f6b5f}
+  :root{--case:#e7e8dc;--card:#fbfbf5;--ink:#26301f;--moss:#4f6b45;--rust:#9c5230;--rule:#c6cbb4;--grey:#6a7160;
+        --serif:Georgia,"Iowan Old Style",serif;--mono:ui-monospace,Menlo,Consolas,monospace;
+        --s0:clamp(11px,.4vw + 10px,12.5px);--s1:clamp(14px,.55vw + 12px,16.5px);--s2:clamp(18px,1.2vw + 14px,25px);
+        --display:clamp(28px,5.2vw,62px);--gut:clamp(16px,3.4vw,58px)}
   *{box-sizing:border-box}
-  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",sans-serif}
-  main{max-width:760px;margin:0 auto;padding:48px 20px 64px}
-  h1{font-size:33px;line-height:1.15;letter-spacing:-.02em;margin:0 0 10px}
-  .lede{font-size:18px;color:var(--muted);margin:0 0 26px}
-  .cta{display:inline-block;background:var(--accent);color:#fff;text-decoration:none;font-weight:600;padding:12px 20px;border-radius:9px}
-  .status{margin:26px 0;padding:14px 16px;border:1px solid var(--line);border-left:4px solid var(--accent);border-radius:9px;background:var(--panel);font-size:14px}
-  .status b{display:block;font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:4px}
-  h2{font-size:17px;margin:30px 0 8px}
-  ul{padding-left:20px}li{margin:4px 0}
-  code{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:#eeede9;padding:1px 5px;border-radius:4px}
-  table{border-collapse:collapse;width:100%;font-size:14px;margin-top:8px}
-  th,td{text-align:left;border-bottom:1px solid var(--line);padding:7px 8px;vertical-align:top}
-  th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.06em}
-  .gap{margin:22px 0 0;padding:12px 14px;border:1px solid #e3c9c9;border-left:4px solid #a02a2a;border-radius:9px;background:#fdf3f3;color:#7d1f1f;font-size:13.5px}
-  footer{margin-top:44px;padding-top:18px;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
-  a{color:var(--accent)}
-
-  .sponsor{margin:24px 0 0;padding:12px 14px;border:1px solid rgba(128,128,128,.35);border-left:3px solid #c9a05a;
-           background:rgba(128,128,128,.07);border-radius:8px;font-size:12.5px;line-height:1.6}
-  .sponsor a{color:#c9a05a;text-decoration:none;border-bottom:1px solid currentColor}
+  body{margin:0;background:var(--case);color:var(--ink);font-family:var(--serif)}
+  .case{max-width:1660px;margin:0 auto;padding:0 0 58px}
+  .bar{display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;padding:10px var(--gut);border-bottom:1px solid var(--rule);
+       font-family:var(--mono);font-size:var(--s0);letter-spacing:.15em;text-transform:uppercase;color:var(--grey)}
+  .bar b{color:var(--moss);font-weight:400}
+  .head{display:grid;gap:clamp(14px,2.2vw,36px);padding:clamp(22px,3.2vw,50px) var(--gut) clamp(14px,2vw,26px);grid-template-columns:1fr}
+  @media (min-width:960px){.head{grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);align-items:end}}
+  h1{font-size:var(--display);line-height:1;margin:0;letter-spacing:-.02em;font-weight:400}
+  h1 em{color:var(--rust);font-style:italic}
+  .head p{margin:10px 0 0;font-size:var(--s2);line-height:1.42;color:var(--grey);max-width:44ch;font-style:italic}
+  .tag{border:1px solid var(--rule);background:var(--card);padding:11px 13px;font-family:var(--mono);font-size:var(--s0);color:var(--grey);line-height:1.7}
+  .tag b{display:block;color:var(--rust);letter-spacing:.16em;text-transform:uppercase;margin-bottom:3px}
+  /* specimens in a case: pinned, labelled, 1 -> 4 across */
+  .tray{display:grid;gap:clamp(8px,1.1vw,16px);padding:0 var(--gut) clamp(16px,2vw,26px);grid-template-columns:repeat(2,1fr)}
+  @media (min-width:620px){.tray{grid-template-columns:repeat(3,1fr)}}
+  @media (min-width:1000px){.tray{grid-template-columns:repeat(5,1fr)}}
+  .spec{background:var(--card);border:1px solid var(--rule);padding:clamp(8px,1vw,14px);text-align:center;position:relative}
+  .spec svg{width:100%;height:clamp(46px,6vw,78px);display:block}
+  .spec .lbl{font-family:var(--mono);font-size:var(--s0);color:var(--moss);margin-top:6px;letter-spacing:.06em}
+  .spec .no{position:absolute;top:4px;left:6px;font-family:var(--mono);font-size:calc(var(--s0) - 1px);color:var(--rule)}
+  .spec.refused{border-style:dashed;background:#f7f3ea}
+  .spec.refused .lbl{color:var(--rust)}
+  .cols{display:grid;gap:clamp(18px,2.6vw,46px);padding:0 var(--gut);grid-template-columns:1fr}
+  @media (min-width:860px){.cols{grid-template-columns:repeat(2,1fr)}}
+  @media (min-width:1380px){.cols{grid-template-columns:repeat(3,1fr)}}
+  h2{font-family:var(--mono);font-size:var(--s0);letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin:0 0 6px}
+  p{font-size:var(--s1);line-height:1.72;margin:0 0 12px}
+  .go{display:inline-block;background:var(--moss);color:#fbfbf5;text-decoration:none;padding:12px 22px;
+      font-family:var(--mono);font-size:var(--s0);letter-spacing:.15em;text-transform:uppercase;margin-top:6px}
+  .go:hover{background:var(--rust)}
+  .sponsor{margin:clamp(22px,3vw,38px) var(--gut) 0;border:1px solid var(--rule);border-left:3px solid #c9a05a;background:var(--card);
+           padding:12px 14px;font-family:var(--mono);font-size:var(--s0);color:var(--grey);line-height:1.6}
+  .sponsor a{color:var(--rust);text-decoration:none;border-bottom:1px solid currentColor}
+  .foot{margin:14px var(--gut) 0;font-family:var(--mono);font-size:var(--s0);color:#8b9078;line-height:1.8}
+  .foot a{color:var(--moss)}
 </style></head>
-<body><main>
-  <h1>Field Kit — Aviary</h1>
-  <p class="lede">Rank a call against bundled sketches, and keep a lifelist with the time, the place and the clip. Offline, with no microphone.</p>
-  <a class="cta" href="play/index.html">Open Aviary</a>
+<body><div class="case">
+  <div class="bar"><span>specimen case · ten sketches</span><span><b>0.62</b> threshold · <b>0</b> guesses</span></div>
 
-  <p class="gap"><strong>This is not a bird identifier.</strong> There is no trained acoustic model and no audio capture in this estate. The eight bundled calls are <em>synthetic spectral sketches</em>, not recordings, and the ranking is nearest-neighbour over them. What is real: the ranking, the confidence, the threshold, the “not a bird” band and the lifelist.</p>
-
-  <div class="status">
-    <b>Status</b>
-    Built and working offline: eight bundled sketches; a ranked list with confidences; a threshold below which the app says <strong>not a bird</strong> and offers no species; a lifelist with time, place and clip that survives a reload; and a dawn-chorus tally that confirms nothing.
-    <br><b>Release</b>: Windows EXE, Android APK and Linux binary, built from this source in CI — <a href="https://github.com/drsamonline/app-field-kit/releases/tag/app-latest">app-latest</a>.
-    <br><b>Not built</b>: recording, spectrogram computation from audio, and a trained classifier. None of those exist here, and the app says so above the fold rather than shipping a microphone button that would return confident nonsense.
+  <div class="head">
+    <div>
+      <h1>Field Kit <em>— Aviary</em></h1>
+      <p>Rank a call against bundled sketches, or be told plainly that it is not one of them.</p>
+    </div>
+    <div class="tag"><b>synthetic sketches</b>Not recordings of real birds, and not a trained model. The page, NOTICE and README all say so.</div>
   </div>
 
-  <h2>What it does</h2>
-  <ul>
-    <li>Ranks a spectral sketch against eight bundled templates and shows a confidence for each.</li>
-    <li>Refuses to name a species below the threshold: it says <strong>not a bird</strong> instead.</li>
-    <li>Keeps a lifelist — species, time, place, clip — that survives a reload with no network.</li>
-    <li>Tallies species over a session in dawn-chorus mode, without confirming any of them.</li>
-  </ul>
+  <div class="tray" id="tray"></div>
 
-  <h2>What it will not do</h2>
-  <ul>
-    <li><strong>Identify a real bird.</strong> There is no model, and the app says so on its own face.</li>
-    <li><strong>Record audio.</strong> No microphone, no capture, no spectrogram from sound.</li>
-    <li><strong>Give a confident wrong ID.</strong> Below the threshold, no species is offered.</li>
-    <li><strong>Confirm from the chorus.</strong> The tally is a tally.</li>
-    <li><strong>Use the internet.</strong> No <code>fetch</code>, no endpoint; CSP <code>connect-src 'none'</code>.</li>
-  </ul>
+  <div class="cols">
+    <div>
+      <h2>Ten, and no more</h2>
+      <p>Eight species, ten sketches. A bigger set drawn from memory would be a bigger pile of unverified claims — so the case is small and honest about it.</p>
+    </div>
+    <div>
+      <h2>It refuses</h2>
+      <p>Beyond the threshold it offers no species at all. A speech-like sketch scores 0.27 and is turned away, because a confident wrong name is worse than none.</p>
+    </div>
+    <div>
+      <h2>Get it</h2>
+      <p>Offline. No microphone, no model.</p>
+      <a class="go" href="play/index.html">open the case →</a>
+    </div>
+  </div>
 
-  <h2>When things go wrong</h2>
-  <table>
-    <tr><th>Case</th><th>What happens</th></tr>
-    <tr><td>Bad input</td><td>A sketch with the wrong number of bands is refused; a sighting with no place is refused; a species that is not bundled cannot be confirmed.</td></tr>
-    <tr><td>No network</td><td>Nothing changes; the lifelist is on the device.</td></tr>
-    <tr><td>Storage full or unavailable</td><td><strong>NOT SAVED</strong>, and the sighting is not in the lifelist.</td></tr>
-    <tr><td>Corrupt saved state</td><td>Reported and offered for export; never replaced with an empty lifelist.</td></tr>
-  </table>
-
-  <h2>How to run it</h2>
-  <ul>
-    <li><strong>Here</strong>: <a href="play/index.html">play/index.html</a>, or install it from your browser's menu.</li>
-    <li><strong>Offline file</strong>: open <code>docs/play/index.html</code> straight from disk.</li>
-    <li><strong>Tests</strong>: <code>node tests/self-tests.js</code>.</li>
-  </ul>
-
-    <div class="sponsor">
+  <div class="sponsor">
     <strong>Sponsor this app.</strong> It is free, offline and has no account. If it earned its keep:
     <a href="https://github.com/sponsors/drsamonline">github.com/sponsors/drsamonline</a>
   </div>
-<footer>PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin · <a href="https://github.com/drsamonline/app-field-kit">source</a></footer>
-</main></body></html>
+  <p class="foot">Windows · Android · Linux at <a href="https://github.com/drsamonline/app-field-kit/releases/tag/app-latest">app-latest</a> ·
+  PolyForm Noncommercial 1.0.0 · (c) 2026 Dr Sohil Momin</p>
+</div>
+<script>
+  (function () {
+    var names = ["koel","bulbul","tailorbird","myna","pigeon","crow","sparrow","owl","not a bird"];
+    var tray = document.getElementById("tray");
+    names.forEach(function (n, i) {
+      var d = document.createElement("div");
+      d.className = "spec" + (n === "not a bird" ? " refused" : "");
+      var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+      svg.setAttribute("viewBox", "0 0 100 40");
+      for (var k = 0; k < 7; k++) {
+        var bar = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+        var h = 6 + ((i * 7 + k * 11) % 28);
+        bar.setAttribute("x", 4 + k * 13.5); bar.setAttribute("y", 38 - h);
+        bar.setAttribute("width", 9); bar.setAttribute("height", h);
+        bar.setAttribute("fill", n === "not a bird" ? "#c6cbb4" : (k === (i % 7) ? "#9c5230" : "#4f6b45"));
+        svg.appendChild(bar);
+      }
+      d.appendChild(svg);
+      var no = document.createElement("span"); no.className = "no"; no.textContent = String(i + 1).padStart(2, "0"); d.appendChild(no);
+      var lbl = document.createElement("div"); lbl.className = "lbl"; lbl.textContent = n; d.appendChild(lbl);
+      tray.appendChild(d);
+    });
+  })();
+</script>
+</body></html>
