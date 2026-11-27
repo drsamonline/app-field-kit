@@ -9,6 +9,7 @@ Rank a bird call against bundled sketches and keep a lifelist with the time, the
 - **Plan row:** #24 of 37 in `drsamonline/forge` → `QUEUE/PLAN.json`
 - **Specs absorbed:** `app-aviary` (lead) + 3 absorbed specs
 - **Licence:** PolyForm Noncommercial 1.0.0
+- **Sponsor:** [github.com/sponsors/drsamonline](https://github.com/sponsors/drsamonline) — free, offline, no account
 
 ## Status
 
